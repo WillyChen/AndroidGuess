@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Guess</string>
-    <String name="ok">確認</String>
+    <string name="ok">確認</string>
 </resources>
