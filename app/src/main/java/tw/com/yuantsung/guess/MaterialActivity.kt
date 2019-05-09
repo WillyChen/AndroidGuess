@@ -1,5 +1,6 @@
 package tw.com.yuantsung.guess
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -47,7 +48,10 @@ class MaterialActivity : AppCompatActivity() {
         when {
             diff < 0 -> message = getString(R.string.bigger)
             diff > 0 -> message = getString(R.string.smaller)
-            secretNumber.count < 3 -> getString(R.string.excellent) + number
+            else -> {
+                if (secretNumber.count < 3) {
+                    message = getString(R.string.excellent) + number}
+            }
         }
 //        if (diff < 0) {
 //            message = getString(R.string.bigger)
@@ -61,7 +65,12 @@ class MaterialActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.dialog_Title))
             .setMessage(message)
-            .setPositiveButton(getString(R.string.ok), null)
+            .setPositiveButton(getString(R.string.ok), {dialog, which ->
+                if (diff == 0) {
+                    val recordIntent = Intent(this,RecordActivity::class.java)
+                    startActivity(recordIntent)
+                }
+            })
             .show()
     }
 }
