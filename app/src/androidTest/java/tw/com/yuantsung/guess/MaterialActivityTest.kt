@@ -22,14 +22,13 @@ class MaterialActivityTest {
     @JvmField
     val activityTestRule = ActivityTestRule<MaterialActivity>(MaterialActivity::class.java)
 
+
     @Test
     fun guessWrong() {
         val resource = activityTestRule.activity.resources
         var secret = activityTestRule.activity.secretNumber.secret
         for ( n in 1..10) {
-            onView(withId(R.id.numberText)).perform(clearText())
-            onView(withId(R.id.numberText)).perform(typeText(n.toString()))
-            onView(withId(R.id.okBtn)).perform(click())
+            inputNumer(n)
 
             val message = if (n > secret) resource.getString(R.string.bigger)
             else resource.getString(R.string.smaller)
@@ -40,8 +39,17 @@ class MaterialActivityTest {
 
     }
 
+    private fun inputNumer(n: Int) {
+        onView(withId(R.id.numberText)).perform(clearText())
+        onView(withId(R.id.numberText)).perform(typeText(n.toString()))
+        onView(withId(R.id.okBtn)).perform(click())
+    }
+
     @Test
-    fun replay() {
+    fun replay(){
+        val resource = activityTestRule.activity.resources
+        inputNumer(2)
+        onView(withText(resource.getString(R.string.ok))).perform(click()).perform(closeSoftKeyboard())
         onView(withId(R.id.fab)).perform(click())
         onView(withText(R.string.ok)).perform(click())
         onView(withId(R.id.counter)).check(matches(withText("0")))
