@@ -44,13 +44,18 @@ class MaterialActivity : AppCompatActivity() {
         Log.d(TAG, "number: $number}")
         val diff = secretNumber.validate(number)
         var message = getString(R.string.Yes_got)
-        if (diff < 0) {
-            message = getString(R.string.bigger)
-        } else if (diff > 0) {
-            message = getString(R.string.smaller)
-        } else if (secretNumber.count < 3) {
-            message = getString(R.string.excellent) + number
+        when {
+            diff < 0 -> message = getString(R.string.bigger)
+            diff > 0 &&  secretNumber.count < 3 -> message = getString(R.string.excellent) + number
+            else -> message = getString(R.string.smaller)
         }
+//        if (diff < 0) {
+//            message = getString(R.string.bigger)
+//        } else if (diff > 0) {
+//            message = getString(R.string.smaller)
+//        } else if (secretNumber.count < 3) {
+//            message = getString(R.string.excellent) + number
+//        }
         counter.setText(secretNumber.count.toString())
 //        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
         AlertDialog.Builder(this)
