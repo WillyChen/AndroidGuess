@@ -46,8 +46,8 @@ class MaterialActivity : AppCompatActivity() {
         var message = getString(R.string.Yes_got)
         when {
             diff < 0 -> message = getString(R.string.bigger)
-            diff > 0 &&  secretNumber.count < 3 -> message = getString(R.string.excellent) + number
-            else -> message = getString(R.string.smaller)
+            diff > 0 -> message = getString(R.string.smaller)
+            secretNumber.count < 3 -> getString(R.string.excellent) + number
         }
 //        if (diff < 0) {
 //            message = getString(R.string.bigger)
